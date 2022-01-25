@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "431968360967",
+    "project_id": "udemy-chat-37011",
+    "storage_bucket": "udemy-chat-37011.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431968360967:android:bc2fbadce8255c5ecaa8a2",
+        "android_client_info": {
+          "package_name": "com.example.ud_flutterlab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431968360967-456neu9ejpj1q21dv4guckllo7kt06g6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2e0SMXJnJi4-luZvuFtDqns0cMojpQQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431968360967-456neu9ejpj1q21dv4guckllo7kt06g6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
