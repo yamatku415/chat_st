@@ -17,6 +17,7 @@ class SharedPrefs {
 
   static String getUid() {
     String uid = prefsInstance!.getString('uid') ?? '';
+    print('とってきたよ');
     return uid;
   }
 }

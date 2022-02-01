@@ -20,6 +20,8 @@ class Firestore {
       await SharedPrefs.setUid(newDoc.id);
 
       List<String> userIds = await getUser();
+      //getUseメソッドで作ったリストのuserIdsをadduserメッソド内のuserIdsに入れている。
+      //おそらくこのuseIds変数は別物(代入しているから値は一緒)
       userIds.forEach((user) async {
         if (user != newDoc.id) {
           await roomRef.add({
@@ -36,13 +38,24 @@ class Firestore {
 
   static Future<List<String>> getUser() async {
     final snapshot = await userRef.get();
+
+    ///ここfirestoreから値をとってくる処理。スナップショットにとってきた値を入れる
     List<String> userIds = [];
+
+    ///※1
     snapshot.docs.forEach((user) {
+      //エピソード１２　docにuserの情報が入っているのでスナップショットのdocにforEach((user) で処理を行っている。
+      // 　useはコレクションでforEach((user)はuserが複数ある場合はその個数分行われる。
       userIds.add(user.id);
+
+      ///※1　この書き方でリスト型で定義しているuserIdsに(user.id)がどんどん入る
       print('ドキュメントID:${user.id} ---名前: ${user.data()['name']}');
+      //user.idはドキュメントのidを取得する。user.dataはコレクションの'name']}を取得させる。
     });
 
     return userIds;
+
+    ///処理を書き終わった、値の入ったuserIdsを返すことが出来る。
   }
 
   static Future<User> getProfile(String uid) async {
@@ -57,9 +70,10 @@ class Firestore {
   }
 
   static Future<List<TalkRoom>> getRooms(String myUid) async {
+    ///キャプチャー16
     final snapshot = await roomRef.get();
     List<TalkRoom> roomList = []; //※1リストを作る文
-    snapshot.docs.forEach((doc) async {
+    await Future.forEach(snapshot.docs, (doc) async {
       if (doc.data()['joined_user_ids'].contains(myUid)) {
         //contains（）で～を含む
         String? yourUid;
@@ -67,6 +81,7 @@ class Firestore {
           if (id != myUid) {
             yourUid = id;
             return; //※１if文でつくった結果をリターンで上の※1に送る
+            //foreachの処理を終わらせるreturn
           }
         });
         User yourProfile = await getProfile(yourUid!);
@@ -77,6 +92,7 @@ class Firestore {
         roomList.add(room);
       }
     });
+    print(roomList.length);
     return roomList;
   }
 }
